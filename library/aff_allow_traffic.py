@@ -59,6 +59,12 @@ options:
         description:
             - List of services of the traffic to allow. Accepted services are as defined on Algosec
             - or by port/proto format (e.g. tcp/50,udp/100,ssh).
+    template:
+        default: Basic
+        required: false
+        description:
+            - Full name of template which ticket is to be opened upon.
+            - Default is the Basic template.
     transport:
         default: ipv4
         choices: [ ipv4, ipv6 ]
@@ -136,6 +142,7 @@ def main():
             sources=dict(type="list", required=True),
             destinations=dict(type="list", required=True),
             services=dict(type="list", required=True),
+            template=dict(default="Basic", required=False),
             transport=dict(default="ipv4", required=False, choices=["ipv4", "ipv6"])
         )
     )
@@ -193,6 +200,7 @@ def main():
                     sources=module.params["sources"],
                     destinations=module.params["destinations"],
                     services=module.params["services"],
+                    template=module.params["template"],
                     description="Traffic change request created by {} directly from Ansible.".format(requester)
                 )
             except AlgosecAPIError:
