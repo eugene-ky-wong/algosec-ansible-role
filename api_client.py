@@ -340,7 +340,7 @@ class AlgosecFireFlowAPIClient(AlgosecAPIClient):
             sources,
             destinations,
             services,
-            template,
+	    template,
             description="",
     ):
         """
